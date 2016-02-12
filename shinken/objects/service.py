@@ -955,7 +955,8 @@ class Service(SchedulingItem):
         if state_code in self.flap_detection_options:
             self.add_flapping_change(self.state != self.last_state)
 
-        if self.state != self.last_state:
+        if self.state != self.last_state and \
+                not(self.state == "CRITICAL" and self.last_state == "UNKNOWN"):
             self.last_state_change = self.last_state_update
 
         self.duration_sec = now - self.last_state_change
